@@ -24,5 +24,5 @@ git clone https://github.com/flexible-collision-library/fcl
 cd fcl; git reset --hard 0.5.0
 mkdir build; cd build
 cmake ..
-make -j `nproc`
+make
 sudo make install

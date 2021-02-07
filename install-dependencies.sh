@@ -80,7 +80,7 @@ if [ ${UBUNTU_VER} = '18.04' ] || [ ${UBUNTU_VER} = '20.04' ]; then
   mkdir -p ~/git 
   cd ~/git && git clone https://github.com/Tencent/rapidjson.git
   cd rapidjson && mkdir build && cd build
-  cmake .. && make -j `nproc` && sudo make install
+  cmake .. && make && sudo make install
 
   # Check or set Git credentials to allow git cherry-pick
   git_username=$(git config --get user.name)
