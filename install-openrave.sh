@@ -29,15 +29,19 @@ if [ ${UBUNTU_VER} = '14.04' ] || [ ${UBUNTU_VER} = '16.04' ]; then
 	echo ""
 	mkdir -p ~/git; cd ~/git
 	git clone https://github.com/rdiankov/openrave.git
+	cd openrave; git reset --hard ${RAVE_COMMIT}
 elif [ ${UBUNTU_VER} = '18.04' ] || [ ${UBUNTU_VER} = '20.04' ]; then
-	RAVE_COMMIT=2024b03554c8dd0e82ec1c48ae1eb6ed37d0aa6e
+#	RAVE_COMMIT=2024b03554c8dd0e82ec1c48ae1eb6ed37d0aa6e
 	echo ""
 	echo "Installing OpenRAVE 0.53.1 from source (Commit ${RAVE_COMMIT})..."
+	echo "Installing OpenRAVE from master..."
 	echo ""
 	mkdir -p ~/git; cd ~/git
-	git clone -b production https://github.com/rdiankov/openrave.git
+	git clone https://github.com/rdiankov/openrave.git
+	#git clone -b production https://github.com/rdiankov/openrave.git
+	cd openrave;
 fi
-cd openrave; git reset --hard ${RAVE_COMMIT}
+#cd openrave; git reset --hard ${RAVE_COMMIT}
 mkdir build; cd build
 if [ ${UBUNTU_VER} = '14.04' ] || [ ${UBUNTU_VER} = '16.04' ]; then
   	cmake -DODE_USE_MULTITHREAD=ON -DOSG_DIR=/usr/local/lib64/ ..
@@ -46,5 +50,6 @@ elif [ ${UBUNTU_VER} = '18.04' ] || [ ${UBUNTU_VER} = '20.04' ]; then
   		-DUSE_PYBIND11_PYTHON_BINDINGS:BOOL=TRUE 			   \
   		-DBoost_NO_BOOST_CMAKE=1 ..
 fi
-make -j `nproc`
+make
+#make -j `nproc`
 sudo make install
